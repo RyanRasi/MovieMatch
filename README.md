@@ -23,15 +23,15 @@ It combines user-based collaborative filtering and content-based filtering techn
 
 4. Build the Docker image: Open a terminal, navigate to your project directory (where the Dockerfile is located), and run the following command to build the Docker image:
 
-`docker build -t movie-matcher .`
+`docker build -t movie-match .`
 
-This command builds the Docker image using the Dockerfile in the current directory and tags it with the name `movie-matcher`.
+This command builds the Docker image using the Dockerfile in the current directory and tags it with the name `movie-match`.
 
 5. Run the Docker container: After the image is built, you can run a container based on that image using the following command:
 
-`docker run -it movie-matcher`
+`docker run -it movie-match`
 
-This command starts a container using the `movie-matcher` image and gives you an interactive terminal within the container.
+This command starts a container using the `movie-match` image and gives you an interactive terminal within the container.
 
 6. Interact with the Spark application: Once the container is running, you can interact with the Spark application just like you would in a regular Spark environment. The code will execute within the container, utilizing the Spark installation inside.
 
