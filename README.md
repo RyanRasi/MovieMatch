@@ -19,6 +19,8 @@ It combines user-based collaborative filtering and content-based filtering techn
 
 `git clone https://github.com/RyanRasi/MovieMatch`
 
+2. Download the dataset [The Movies Dataset](https://www.kaggle.com/datasets/rounakbanik/the-movies-dataset) and place the two required files within the `/assets` folder. The two files are `movies_metadata.csv` and `ratings.csv`, both totalling 744 MB.
+
 3. Build the Docker image: Open a terminal, navigate to your project directory (where the Dockerfile is located), and run the following command to build the Docker image:
 
 `docker build -t movie-matcher .`
@@ -63,4 +65,4 @@ This project is licensed under the [MIT License](LICENSE).
 - [Apache Spark](https://spark.apache.org/)
 - [React](https://react.dev/)
 - [.Net7.0](https://dotnet.microsoft.com/)
-- [Kaggle](https://www.kaggle.com/)
+- [Kaggle The Movies Dataset](https://www.kaggle.com/datasets/rounakbanik/the-movies-dataset)
