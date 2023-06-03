@@ -6,11 +6,16 @@ It combines user-based collaborative filtering and content-based filtering techn
 
 ## Components
 
------------------------------------
-| Front-end    | React, Bootstrap |
-| Back-end     | ASP.NET Core     |
-| Microservice | Java, Spark      |
------------------------------------
+#### Front-end
+- React
+- Bootstrap
+
+#### Back-end
+- ASP.NET Core
+
+#### Microservice
+- Java
+- Spark
 
 ## Prerequisites
 
