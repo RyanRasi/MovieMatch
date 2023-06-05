@@ -17,12 +17,6 @@ It combines user-based collaborative filtering and content-based filtering techn
 - Java
 - Spark
 
-## Prerequisites
-
-- Docker
-
-- Apache Spark (version 3.4.0)
-
 ## Setup
 
 1. Install Docker: [Download Docker](https://www.docker.com/products/docker-desktop) and follow the installation instructions.
@@ -31,7 +25,7 @@ It combines user-based collaborative filtering and content-based filtering techn
 
 `git clone https://github.com/RyanRasi/MovieMatch`
 
-3. Download the dataset [The Movies Dataset](https://www.kaggle.com/datasets/rounakbanik/the-movies-dataset) and place the two required files within the `/assets/data` folder. The two files are `movies_metadata.csv` and `ratings.csv`, both totalling 744 MB.
+3. Download the dataset [MovieLens 20M Dataset](https://www.kaggle.com/datasets/grouplens/movielens-20m-dataset) and place the two required files within the `/assets/data` folder. The two files are `movies_metadata.csv` and `ratings.csv`, both totalling 744 MB.
 
 4. Build the Docker image: Open a terminal, navigate to your project directory (where the Dockerfile is located), and run the following command to build the Docker image:
 
@@ -43,9 +37,9 @@ This command builds the Docker image using the Dockerfile in the current directo
 
 `docker run --rm -p 8080:8000 movie-match`
 
-You can now access the application here [localhost:8080](http://localhost:8080/)
-
 This command starts a container using the `movie-match` image and gives you an interactive terminal within the container.
+
+You can now access the application here [localhost:8080](http://localhost:8080/)
 
 6. Interact with the Spark application: Once the container is running, you can interact with the Spark application just like you would in a regular Spark environment. The code will execute within the container, utilizing the Spark installation inside.
 
