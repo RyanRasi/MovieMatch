@@ -1,13 +1,13 @@
 # MovieMatch
 
-This project implements a movie recommender system using Spark, Hadoop, Mahout, Java (Maven), React and Docker. 
+This project implements a movie recommender system using Hadoop, Spark, Mahout, Java (Maven), Angular and Docker. 
 
 It combines user-based collaborative filtering and content-based filtering techniques to provide personalized movie recommendations based on user preferences and movie features.
 
 ## Components
 
 #### Front-end
-- React
+- Angular
 - Bootstrap
 
 #### Back-end
@@ -79,5 +79,5 @@ This project is licensed under the [MIT License](LICENSE).
 - [Apache Mahout](https://mahout.apache.org/)
 - [Java](https://www.java.com/)
 - [Maven](https://maven.apache.org/)
-- [React](https://react.dev/)
+- [Angular](https://angular.io/)
 - [Kaggle The Movies Dataset](https://www.kaggle.com/datasets/rounakbanik/the-movies-dataset)
