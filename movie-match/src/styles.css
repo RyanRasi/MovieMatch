@@ -1,0 +1,53 @@
+/* You can add global styles to this file, and also import other style files *//*# sourceMappingURL=styles.css.map */
+body {
+    font-family: Arial, sans-serif;
+}
+
+header {
+    background-color: #f2f2f2;
+    padding: 20px;
+    text-align: center;
+}
+
+.search-box {
+    margin: 0 auto;
+    width: 80%;
+    padding: 20px;
+    text-align: center;
+}
+
+.selected-movies-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.movie-card {
+    width: calc(20% - 10px);
+    margin-bottom: 20px;
+    padding: 10px;
+    position: relative;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+}
+
+.movie-card .title {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.movie-card .remove-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: transparent;
+    border: none;
+    color: red;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.dropdown-menu.show {
+    display: block;
+}

@@ -1,0 +1,11 @@
+<div class="movie-selector">
+  <input type="text" class="form-control" placeholder="Search movies..." [(ngModel)]="searchInput" (keyup)="searchMovies()" />
+  <ul class="movie-list" *ngIf="showDropdown">
+    <li *ngFor="let movie of movieSuggestions" (click)="selectMovie(movie)">
+      <img class="movie-poster" [src]="movie.poster" alt="Movie Poster" />
+      <p class="movie-title">{{ movie.title }}</p>
+      <p class="movie-year">{{ movie.year }}</p>
+    </li>
+    <li *ngIf="movieSuggestions.length === 0">No suggestions found</li>
+  </ul>
+</div>
