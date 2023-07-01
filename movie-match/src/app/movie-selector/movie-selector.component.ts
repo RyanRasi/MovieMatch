@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
 import { HttpClient } from '@angular/common/http';
 import { parse } from 'papaparse';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-movie-selector',
@@ -14,9 +15,13 @@ export class MovieSelectorComponent {
   showDropdown = false;
 
   movies: any[] = [];
-  tempSelectedMovies = {};
+  selectedMovies: any[] = [];
 
   movie_metadata_path = 'assets/movies_metadata.csv';
+
+  pageView = "Select";
+
+  private dataSubscription!: Subscription;
 
   constructor(private http: HttpClient, private dataService: DataService) { }
 
@@ -25,10 +30,10 @@ export class MovieSelectorComponent {
   }
 
   readCSV(): void {
-    this.http.get(this.movie_metadata_path, { responseType: 'text'})
-    .subscribe(data => {
-      this.extractColumnValues(data);
-    });
+    this.http.get(this.movie_metadata_path, { responseType: 'text' })
+      .subscribe(data => {
+        this.extractColumnValues(data);
+      });
   }
 
   extractColumnValues(csvData: string): void {
@@ -57,7 +62,7 @@ export class MovieSelectorComponent {
     const filteredMovies = movies.filter((movie) =>
       movie.title.toLowerCase().includes(input.toLowerCase())
     );
-  
+
     return filteredMovies.slice(0, 5);
   }
 
@@ -65,5 +70,36 @@ export class MovieSelectorComponent {
     this.dataService.addData(movie);
     this.showDropdown = false; // Hide the dropdown after selecting a movie
     this.searchInput = "";
+  }
+
+  buttonTrigger() {
+    if (this.pageView == "Select") {
+      this.selectedMovies = this.dataService.returnData();
+      if (this.selectedMovies.length <= 2) {
+        console.log("Must select at least 3 movies");
+      } else {
+        console.log(this.selectedMovies);
+        let requestMovies: any[] = []
+        for (let i = 0; i < this.selectedMovies.length; i++) {
+          requestMovies.push(this.selectedMovies[i].title);
+        }
+        console.log(requestMovies.join(","));
+        //      this.http.get('http://localhost:8080/api/movies+')
+        //      .subscribe(
+        //        data => {
+        // Handle the API response data
+        //          console.log(data);
+        //        },
+        //        error => {
+        // Handle any errors
+        //          console.error(error);
+        //        }
+        //      );
+        this.pageView = "Recommend";
+      }
+    } else {
+      this.dataService.resetData();
+      this.pageView = "Select"
+    }
   }
 }

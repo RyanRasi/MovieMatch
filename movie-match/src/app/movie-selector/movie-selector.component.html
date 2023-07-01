@@ -1,11 +1,19 @@
-<div class="movie-selector">
-  <input type="text" class="form-control" placeholder="Search movies..." [(ngModel)]="searchInput" (keyup)="searchMovies()" />
-  <ul class="movie-list" *ngIf="showDropdown">
-    <li *ngFor="let movie of movieSuggestions" (click)="selectMovie(movie)">
-      <img class="movie-poster" [src]="movie.poster" alt="Movie Poster" />
-      <p class="movie-title">{{ movie.title }}</p>
-      <p class="movie-year">{{ movie.year }}</p>
-    </li>
-    <li *ngIf="movieSuggestions.length === 0">No suggestions found</li>
-  </ul>
+<div class="d-flex justify-content-center">
+  <div class="movie-selector" *ngIf="pageView == 'Select'">
+    <input type="text" class="form-control" placeholder="Search movies..." [(ngModel)]="searchInput"
+      (keyup)="searchMovies()" />
+    <ul class="movie-list" *ngIf="showDropdown">
+      <li *ngFor="let movie of movieSuggestions" (click)="selectMovie(movie)">
+        <img class="movie-poster" [src]="movie.poster" alt="Movie Poster" />
+        <p class="movie-title">{{ movie.title }}</p>
+        <p class="movie-year">{{ movie.year }}</p>
+      </li>
+      <li *ngIf="movieSuggestions.length === 0">No suggestions found</li>
+    </ul>
+  </div>
+</div>
+<div class="d-flex justify-content-center">
+  <form (ngSubmit)="buttonTrigger()" *ngIf="!showDropdown">
+    <button type="submit" class="btn btn-outline-secondary" [disabled]="showDropdown">{{pageView == 'Select' ? "Recommend" : "Back to Movie Selection"}}</button>
+  </form>
 </div>

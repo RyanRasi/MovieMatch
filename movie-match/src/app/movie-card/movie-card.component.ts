@@ -7,15 +7,17 @@ import { DataService } from '../data.service';
   templateUrl: './movie-card.component.html',
   styleUrls: ['./movie-card.component.sass']
 })
+
 export class MovieCardComponent implements OnInit, OnDestroy {
-  movies: any[] = [];
+  selectedMovies: any[] = [];
+  recommendedMovies: any[] = [];
   private dataSubscription!: Subscription;
 
   constructor(private dataService: DataService) { }
 
   ngOnInit(): void {
     this.dataSubscription = this.dataService.data$.subscribe((data) => {
-      this.movies = data;
+      this.selectedMovies = data;
     });
   }
 
@@ -24,7 +26,7 @@ export class MovieCardComponent implements OnInit, OnDestroy {
   }
 
   removeMovie(movie: any): void {
-    this.movies = this.movies.filter(movieObj => movieObj != movie);
-    this.dataService.setData(this.movies);
+    this.selectedMovies = this.selectedMovies.filter(movieObj => movieObj != movie);
+    this.dataService.setData(this.selectedMovies);
   }
 }

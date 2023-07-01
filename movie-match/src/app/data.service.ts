@@ -15,8 +15,15 @@ export class DataService {
 
   setData(item: any): void {
     this.data = item;
-    this.data$.next(this.data)
+    this.data$.next(this.data);
   }
 
+  returnData() {
+    return this.data;
+  }
 
+  resetData() {
+    this.data = [];
+    this.data$.next(this.data);
+  }
 }

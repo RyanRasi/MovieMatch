@@ -15,7 +15,7 @@ import { DataService } from './data.service';
   declarations: [
     AppComponent,
     MovieSelectorComponent,
-    MovieCardComponent
+    MovieCardComponent,
   ],
   imports: [
     BrowserModule,
