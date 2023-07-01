@@ -84,18 +84,8 @@ export class MovieSelectorComponent {
           requestMovies.push(this.selectedMovies[i].title);
         }
         console.log(requestMovies.join(","));
-        //      this.http.get('http://localhost:8080/api/movies+')
-        //      .subscribe(
-        //        data => {
-        // Handle the API response data
-        //          console.log(data);
-        //        },
-        //        error => {
-        // Handle any errors
-        //          console.error(error);
-        //        }
-        //      );
         this.pageView = "Recommend";
+        this.dataService.getRecommendations();
       }
     } else {
       this.dataService.resetData();
