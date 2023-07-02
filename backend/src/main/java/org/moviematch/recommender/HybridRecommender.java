@@ -1,4 +1,4 @@
-package org.moviematch;
+package org.moviematch.recommender;
 
 import java.io.File;
 import java.io.IOException;

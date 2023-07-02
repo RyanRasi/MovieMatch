@@ -1,4 +1,4 @@
-package org.moviematch;
+package org.moviematch.recommender;
 
 import org.apache.spark.ml.evaluation.RegressionEvaluator;
 import org.apache.spark.ml.recommendation.ALS;

@@ -14,7 +14,13 @@
 	<name>webserver</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
-		<java.version>17</java.version>
+		<java.version>11</java.version>
+		<maven.compiler.source>11</maven.compiler.source>
+		<maven.compiler.target>11</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<jackson.version>2.12.0</jackson.version>
+		<scala.version>2.12.17</scala.version>
+		<spark.version>3.2.0</spark.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -26,6 +32,94 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+
+	<!-- Apache Commons -->
+	<dependency>
+		<groupId>org.apache.commons</groupId>
+		<artifactId>commons-csv</artifactId>
+		<version>1.10.0</version>
+	</dependency>
+
+	<!-- Spark Core -->
+	<dependency>
+		<groupId>org.apache.spark</groupId>
+		<artifactId>spark-core_2.12</artifactId>
+		<version>${spark.version}</version>
+	</dependency>
+
+	<!-- Spark SQL -->
+	<dependency>
+		<groupId>org.apache.spark</groupId>
+		<artifactId>spark-sql_2.12</artifactId>
+		<version>${spark.version}</version>
+	</dependency>
+
+	<!-- Spark ML lib -->
+	<dependency>
+		<groupId>org.apache.spark</groupId>
+		<artifactId>spark-mllib_2.12</artifactId>
+		<version>${spark.version}</version>
+	</dependency>
+
+	<!-- Jackson -->
+	<dependency>
+		<groupId>com.fasterxml.jackson.core</groupId>
+		<artifactId>jackson-core</artifactId>
+		<version>${jackson.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>com.fasterxml.jackson.core</groupId>
+		<artifactId>jackson-databind</artifactId>
+		<version>${jackson.version}</version>
+	</dependency>
+
+	<dependency>
+		<groupId>com.fasterxml.jackson.core</groupId>
+		<artifactId>jackson-annotations</artifactId>
+		<version>${jackson.version}</version>
+	</dependency>
+	<!-- Hadoop -->
+	<dependency>
+		<groupId>org.apache.hadoop</groupId>
+		<artifactId>hadoop-client</artifactId>
+		<version>2.7.7</version>
+	</dependency>
+
+	<!-- Mahout -->
+	<dependency>
+		<groupId>org.apache.mahout</groupId>
+		<artifactId>mahout-core</artifactId>
+		<version>0.9</version>
+	</dependency>
+
+	<dependency>
+		<groupId>org.apache.mahout</groupId>
+		<artifactId>mahout-mr</artifactId>
+		<version>0.13.0</version>
+	</dependency>
+
+	<!-- Scala dependencies -->
+	<dependency>
+		<groupId>org.scala-lang</groupId>
+		<artifactId>scala-library</artifactId>
+		<version>${scala.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.scala-lang</groupId>
+		<artifactId>scala-compiler</artifactId>
+		<version>${scala.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.scala-lang</groupId>
+		<artifactId>scala-reflect</artifactId>
+		<version>${scala.version}</version>
+	</dependency>
+		<dependency>
+			<groupId>com.vaadin.external.google</groupId>
+			<artifactId>android-json</artifactId>
+			<version>0.0.20131108.vaadin1</version>
+			<scope>compile</scope>
 		</dependency>
 	</dependencies>
 

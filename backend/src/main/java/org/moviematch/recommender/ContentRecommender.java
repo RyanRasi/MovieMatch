@@ -1,4 +1,4 @@
-package org.moviematch;
+package org.moviematch.recommender;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;

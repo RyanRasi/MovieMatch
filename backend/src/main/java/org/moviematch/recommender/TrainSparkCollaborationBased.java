@@ -1,31 +1,30 @@
-package org.moviematch;
+package org.moviematch.recommender;
+
+import java.io.IOException;
 
 import org.apache.spark.ml.recommendation.ALS;
 import org.apache.spark.ml.recommendation.ALSModel;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
-import org.apache.spark.sql.RowFactory;
 import org.apache.spark.sql.SparkSession;
-import org.apache.spark.sql.types.DataTypes;
 
-import java.util.Arrays;
-import java.util.List;
+public class TrainSparkCollaborationBased {
 
-public class CollaborativeSpecificUser {
-
-    public static final String RATINGS_DATA_PATH = "./src/main/resources/data/100k/ratings.csv";
+    public static final String MOVIE_RATINGS_PATH = "./src/main/resources/data/100k/ratings.csv";
+    public static final String MODEL_PATH = "./src/main/resources/models/collaborative_model";
 
     public static void main(String[] args) {
         // Create SparkSession
         SparkSession spark = SparkSession.builder()
-                .appName("MovieRecommendationGenerator")
+                .appName("SparkCollaborativeModelTrainer")
                 .config("spark.master", "local")
                 .getOrCreate();
 
         // Load ratings data (userId, movieId, rating)
         Dataset<Row> ratingsDF = spark.read()
                 .option("header", true)
-                .csv(RATINGS_DATA_PATH)
+                .csv(MOVIE_RATINGS_PATH)
+                .na().drop()
                 .selectExpr("CAST(userId AS INT)", "CAST(movieId AS INT)", "CAST(rating AS FLOAT)");
 
         // Train the collaborative filtering model
@@ -38,16 +37,15 @@ public class CollaborativeSpecificUser {
 
         ALSModel collaborativeModel = als.fit(ratingsDF);
 
-        // Generate recommendations for user 1
-        int userId = 1;
-        List<Row> userRows = Arrays.asList(RowFactory.create(userId));
-        Dataset<Row> userDF = spark.createDataFrame(userRows, DataTypes.createStructType(Arrays.asList(DataTypes.createStructField("userId", DataTypes.IntegerType, false))));
+        // Save the collaborative filtering model
+        try {
+			collaborativeModel.save(MODEL_PATH);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-        Dataset<Row> userRecs = collaborativeModel.recommendForUserSubset(userDF, 5);
-
-        // Display the recommended movies
-        System.out.println("Recommended movies for User " + userId + ":");
-        userRecs.select("recommendations.movieId", "recommendations.rating").show(false);
+        System.out.println("Spark collaborative filtering model trained and saved successfully!");
 
         // Stop SparkSession
         spark.stop();
