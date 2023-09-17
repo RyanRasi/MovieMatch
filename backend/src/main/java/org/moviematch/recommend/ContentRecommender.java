@@ -1,8 +1,9 @@
-package org.moviematch.recommender;
+package org.moviematch.recommend;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
+import org.moviematch.train.MovieRecommenderModel;
 
 import java.io.FileInputStream;
 import java.io.FileReader;
@@ -14,7 +15,7 @@ public class ContentRecommender {
 
     public static final String MODEL_PATH = "./src/main/resources/models/content_model.ser";
 
-    public static void main(String[] args) {
+    public String generateRecommendations() {
         // Load the movie recommender model from the saved file
         MovieRecommenderModel movieRecommenderModel = loadModel(MODEL_PATH);
 
@@ -54,12 +55,14 @@ public class ContentRecommender {
             String csvFilePath = "./src/main/resources/data/100k/movies.csv";
             String columnName = "title"; // Name of the column
 
-
+            StringBuilder output = new StringBuilder();
 
             // Print recommendations
             System.out.println("Top " + numRecommendations + " Recommendations based on the three target movies:");
             for (MovieSimilarity recommendation : topRecommendations) {
                 System.out.println("Movie ID: " + recommendation.getMovieID() + ", Similarity: " + recommendation.getSimilarity());
+                output.append("{Movie ID: ").append(recommendation.getMovieID())
+                        .append(", Similarity: ").append(recommendation.getSimilarity()).append("\n");
                 int rowNumber = recommendation.getMovieID(); // Row number (1-based index)
                 // Get the CSV record at the specified row number
                 try (FileReader reader = new FileReader(csvFilePath);
@@ -68,15 +71,16 @@ public class ContentRecommender {
 
                 // Get the value in the specified column
                 String columnValue = record.get(columnName);
-
+                output.append(columnValue).append("}, \n");
                 // Print the value
                 System.out.println(columnValue + "\n");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
-
+            return output.toString();
         }
+        return null;
     }
 
     private static MovieRecommenderModel loadModel(String filePath) {

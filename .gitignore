@@ -1,2 +1,14 @@
 /target/
 .DS_Store
+/node_modules
+link.csv
+links.csv
+tag.csv
+tags.csv
+movies_metadata.csv
+genome_scores.csv
+genome_tags.csv
+movie.csv
+movies.csv
+rating.csv
+ratings.csv

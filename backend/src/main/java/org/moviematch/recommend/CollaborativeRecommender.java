@@ -1,6 +1,5 @@
-package org.moviematch.recommender;
+package org.moviematch.recommend;
 
-import org.apache.spark.ml.evaluation.RegressionEvaluator;
 import org.apache.spark.ml.recommendation.ALS;
 import org.apache.spark.ml.recommendation.ALSModel;
 import org.apache.spark.sql.*;
@@ -10,13 +9,10 @@ import org.apache.spark.sql.types.StructType;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class CollaborativeRecommender {
-
     public static final String RATINGS_DATA_PATH = "./src/main/resources/data/100k/ratings.csv";
-
-    public static void main(String[] args) {
+    public String generateRecommendations() {
         // Create SparkSession
         SparkSession spark = SparkSession.builder()
                 .appName("MovieRecommendationGenerator")
@@ -66,9 +62,19 @@ public class CollaborativeRecommender {
         // Get recommendations for the new user
         Dataset<Row> userRecs = collaborativeModel.recommendForUserSubset(newUserDataset, 10);
 
-        userRecs.show(10, false);
+        Row[] topRows = (Row[]) userRecs.take(10);
+
+        // Convert the rows to a string representation
+        StringBuilder output = new StringBuilder();
+        for (Row row : topRows) {
+            output.append(row.toString()).append("\n");
+        }
+
+        // userRecs.show(10, false);
 
         // Stop SparkSession
         spark.stop();
+
+        return output.toString();
     }
 }

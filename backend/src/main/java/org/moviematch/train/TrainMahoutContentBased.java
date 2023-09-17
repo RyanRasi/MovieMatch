@@ -1,4 +1,4 @@
-package org.moviematch.recommender;
+package org.moviematch.train;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -10,46 +10,13 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
 import java.io.*;
-import java.util.*;
-
-class MovieRecommenderModel implements Serializable {
-    private List<Map<String, Double>> tfidfVectors;
-    private Map<String, Integer> genreMap;
-    private List<List<String>> genreTokensList;
-    private Set<String> uniqueTerms;
-
-    // Constructor to initialize the model
-    public MovieRecommenderModel(List<Map<String, Double>> tfidfVectors, Map<String, Integer> genreMap, List<List<String>> genreTokensList, Set<String> uniqueTerms) {
-        this.tfidfVectors = tfidfVectors;
-        this.genreMap = genreMap;
-        this.genreTokensList = genreTokensList;
-        this.uniqueTerms = uniqueTerms;
-    }
-
-    // Getter methods for the data structures
-    public List<Map<String, Double>> getTfidfVectors() {
-        return tfidfVectors;
-    }
-
-    public Map<String, Integer> getGenreMap() {
-        return genreMap;
-    }
-
-    public List<List<String>> getGenreTokensList() {
-        return genreTokensList;
-    }
-
-    public Set<String> getUniqueTerms() {
-        return uniqueTerms;
-    }
-}
 
 public class TrainMahoutContentBased {
 
     public static final String MOVIE_CONTENT_PATH = "./src/main/resources/data/100k/movies.csv";
     public static final String MODEL_PATH = "./src/main/resources/models/content_model.ser";
 
-    public static void main(String[] args) {
+    public String trainRecommendations() {
         Map<String, Integer> genreMap = new HashMap<>();
         List<List<String>> genreTokensList = new ArrayList<>();
         Set<String> uniqueTerms = new HashSet<>();
@@ -125,6 +92,7 @@ public class TrainMahoutContentBased {
                  ObjectOutputStream objectOut = new ObjectOutputStream(fileOut)) {
                 objectOut.writeObject(movieRecommenderModel);
                 System.out.println("Movie recommender model saved successfully!");
+                return "Movie recommender model saved successfully!";
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -132,5 +100,6 @@ public class TrainMahoutContentBased {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return null;
     }
 }
