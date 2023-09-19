@@ -85,7 +85,7 @@ export class MovieSelectorComponent {
         }
         console.log(requestMovies.join(","));
         this.pageView = "Recommend";
-        this.dataService.getRecommendations();
+        this.dataService.getRecommendations(requestMovies);
       }
     } else {
       this.dataService.resetData();

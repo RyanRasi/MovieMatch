@@ -7,6 +7,8 @@ export class DataService {
   public data$ = new BehaviorSubject<any[]>([]);
   private recommendation: any[] = [];
   public recommendation$ = new BehaviorSubject<any[]>([]);
+  http: any;
+  params = '';
 
   constructor() { }
 
@@ -31,19 +33,29 @@ export class DataService {
     this.data$.next(this.data);
   }
 
-  getRecommendations() {
-            //      this.http.get('http://localhost:8080/api/movies+')
-        //      .subscribe(
-        //        data => {
-        // Handle the API response data
-        //          console.log(data);
-        //        },
-        //        error => {
-        // Handle any errors
-        //          console.error(error);
-        //        }
-        //      );
-        this.recommendation.push({title: 'Cars', year: '2006', poster: 'https://image.tmdb.org/t/p/original/u4G8EkiIBZYx0wEg2xDlXZigTOZ.jpg'});
-        this.recommendation$.next(this.recommendation);
+  getRecommendations(requestMovies: any[]) {
+    this.params = '';
+    for (let i = 0; i < requestMovies.length; i++) {
+      {
+        console.log(requestMovies[i]);
+        this.params = this.params + 'movieIds=' + requestMovies[i] + '&'
+      }
+      // Remove last '&' character
+      this.params = this.params.slice(0, -1);
+      // Call URL
+      this.http.get('http://localhost:8080/recommendHybrid?' + this.params)
+        .subscribe(
+          (data: any) => {
+            // Handle the API response data
+            console.log(data);
+          },
+          (error: any) => {
+            // Handle any errors
+            console.error(error);
+          }
+        );
+      this.recommendation.push({ title: 'Cars', year: '2006', poster: 'https://image.tmdb.org/t/p/original/u4G8EkiIBZYx0wEg2xDlXZigTOZ.jpg' });
+      this.recommendation$.next(this.recommendation);
+    }
   }
 }
