@@ -9,10 +9,11 @@ import org.apache.spark.sql.types.StructType;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CollaborativeRecommender {
     public static final String RATINGS_DATA_PATH = "./src/main/resources/data/100k/ratings.csv";
-    public String generateRecommendations() {
+    public String generateRecommendations(List<Integer> movieIds) {
         // Create SparkSession
         SparkSession spark = SparkSession.builder()
                 .appName("MovieRecommendationGenerator")
@@ -27,13 +28,19 @@ public class CollaborativeRecommender {
 
         // Create a new user dataset with a user ID
         int newUserId = 999; // Choose a unique user ID for the new user
-        List<Row> newUserData = Arrays.asList(
-                RowFactory.create(newUserId, 170957, 5.0F),
-                RowFactory.create(newUserId, 45517, 5.0F),
-                RowFactory.create(newUserId, 87876, 5.0F),
-                RowFactory.create(newUserId, 1, 5.0F),
-                RowFactory.create(newUserId, 3114, 5.0F)
-        );
+
+        // Create a new list based on movieIds
+        List<Row> newUserData = movieIds.stream()
+                .map(integer -> RowFactory.create(newUserId, integer, 5.0F))
+                .collect(Collectors.toList());
+
+        //List<Row> newUserData = Arrays.asList(
+        //        RowFactory.create(newUserId, 170957, 5.0F),
+        //        RowFactory.create(newUserId, 45517, 5.0F),
+        //        RowFactory.create(newUserId, 87876, 5.0F),
+        //        RowFactory.create(newUserId, 1, 5.0F),
+        //        RowFactory.create(newUserId, 3114, 5.0F)
+        //);
 
         List<StructField> fields = Arrays.asList(
                 DataTypes.createStructField("userId", DataTypes.IntegerType, false),

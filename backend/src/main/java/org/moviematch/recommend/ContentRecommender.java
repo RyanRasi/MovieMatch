@@ -15,7 +15,7 @@ public class ContentRecommender {
 
     public static final String MODEL_PATH = "./src/main/resources/models/content_model.ser";
 
-    public String generateRecommendations() {
+    public String generateRecommendations(List<Integer> movieIds) {
         // Load the movie recommender model from the saved file
         MovieRecommenderModel movieRecommenderModel = loadModel(MODEL_PATH);
 
@@ -26,7 +26,12 @@ public class ContentRecommender {
             Set<String> uniqueTerms = movieRecommenderModel.getUniqueTerms();
 
             // Get recommendations for three target movies
-            int[] targetMovieIDs = {6712, 7770}; // Specify the target movie IDs for recommendations
+            //int[] targetMovieIDs = {6712, 7770}; // Specify the target movie IDs for recommendations
+            //int[] targetMovieIDs = {59315, 77561, 102125};
+            int[] targetMovieIDs = movieIds.stream()
+                    .mapToInt(Integer::intValue)
+                    .toArray();
+
             int numRecommendations = 5; // Number of recommendations to retrieve
 
             List<MovieSimilarity> movieSimilarities = new ArrayList<>();

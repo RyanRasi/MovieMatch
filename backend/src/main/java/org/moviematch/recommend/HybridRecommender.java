@@ -25,12 +25,12 @@ public class HybridRecommender {
         this.collaborativeRecommender = new CollaborativeRecommender();
     }
 
-    public List<Integer> generateHybridRecommendations() {
+    public List<Integer> generateHybridRecommendations(List<Integer> movieIds) {
         // Generate content-based recommendations
-        String contentRecommendationsStr = contentRecommender.generateRecommendations();
+        String contentRecommendationsStr = contentRecommender.generateRecommendations(movieIds);
 
         // Generate collaborative-based recommendations
-        String collaborativeRecommendationsStr = collaborativeRecommender.generateRecommendations();
+        String collaborativeRecommendationsStr = collaborativeRecommender.generateRecommendations(movieIds);
 
         // Convert String object to Integer List
         List<Integer> contentRecommendationsInt = extractContentMovieIdsFromJson("[" + contentRecommendationsStr + "]");
@@ -81,7 +81,12 @@ public class HybridRecommender {
 
     public static void main(String[] args) {
         HybridRecommender hybridRecommender = new HybridRecommender();
-        List<Integer> recommendations = hybridRecommender.generateHybridRecommendations();
+        List<Integer> movieIds = new ArrayList<Integer>();
+        // You can now add integers to the list.
+        movieIds.add(6712);
+        movieIds.add(7770);
+
+        List<Integer> recommendations = hybridRecommender.generateHybridRecommendations(movieIds);
 
         System.out.println("Hybrid Recommendations:");
         for (int movieID : recommendations) {
