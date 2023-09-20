@@ -11,6 +11,7 @@ import { DataService } from '../data.service';
 export class MovieCardComponent implements OnInit, OnDestroy {
   selectedMovies: any[] = [];
   recommendedMovies: any[] = [];
+  loading = false;
   private dataSubscription!: Subscription;
   private recommendationSubscription!: Subscription;
 
@@ -30,6 +31,9 @@ export class MovieCardComponent implements OnInit, OnDestroy {
       if (this.recommendedMovies.length != 0) {
         this.card = this.recommendedMovies;
       }
+    });
+    this.dataService.isLoading$.subscribe((isLoading) => {
+      this.loading = isLoading;
     });
   }
 
