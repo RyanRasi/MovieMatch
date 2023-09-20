@@ -31,14 +31,6 @@ export class MovieSelectorComponent {
     this.readCSV();
   }
 
-  /*readCSV(): void {
-    this.http.get(this.movie_metadata_path, { responseType: 'text' })
-      .subscribe(movieMetadata => {
-        this.extractColumnValues(movieMetadata);
-      });
-  };*/
-
-
   readCSV(): void {
     const movieMetadata$ = this.http.get(this.movie_metadata_path, { responseType: 'text' });
     const movieIds$ = this.http.get(this.movieIds_path, { responseType: 'text' });
@@ -47,19 +39,6 @@ export class MovieSelectorComponent {
       this.extractColumnValues(movieMetadata, movieIds);
     });
   }
-
-  /*extractColumnValues(csvData: string): void {
-    const rows = csvData.split('\n');
-    for (let i = 1; i < rows.length; i++) {
-      const columns = rows[i].split(',');
-      if (columns.length > 1) {
-        const movieTitle = columns[0].trim();
-        const moviePoster = columns[1].trim();
-        const movieReleaseDate = columns[3].trim().split("-")[0];
-        this.movies.push({ title: movieTitle, year: movieReleaseDate, poster: moviePoster });
-      }
-    }
-  }*/
 
   extractColumnValues(csvData1: string, csvData2: string): void {
     const rows1 = csvData1.split('\n');
