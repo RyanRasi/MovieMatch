@@ -1,5 +1,8 @@
 <div class="container">
-    <div class="row">
+    <p class="text-center" *ngIf="loading"> 
+        Loading Recommendations... 
+    </p>
+    <div class="row" *ngIf="!loading">
         <div class="col-md-4" *ngFor="let movie of card">
             <div class="movie-card">
                 <img class="movie-poster" [src]="movie.poster" alt="Movie Poster">
@@ -7,7 +10,7 @@
                     <h4 class="movie-title">{{ movie.title }}</h4>
                     <p class="movie-year">{{ movie.year }}</p>
                 </div>
-                <button class="remove-button" (click)="removeMovie(movie)" *ngIf="recommendedMovies != []">x</button>
+                <button class="remove-button" (click)="removeMovie(movie)" *ngIf="recommendedMovies.length < 1">x</button>
             </div>
         </div>
     </div>
