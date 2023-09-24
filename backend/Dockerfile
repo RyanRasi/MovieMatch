@@ -28,8 +28,6 @@ RUN echo '#!/bin/bash' > entrypoint.sh && \
     echo 'java -cp target/classes org.moviematch.Main' >> entrypoint.sh && \
     chmod +x entrypoint.sh
 
-# Use the entry point script to run your application
-##CMD ["/bin/bash", "/opt/moviematch_backend/entrypoint.sh"]
 EXPOSE 8080
 # Use the entry point script to run your application
 CMD ["java", "-jar", "./target/MovieMatch-1.0-SNAPSHOT.jar"]  # Update the JAR file name

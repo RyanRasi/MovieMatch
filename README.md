@@ -27,39 +27,35 @@ It combines user-based collaborative filtering and content-based filtering techn
 
 `git clone https://github.com/RyanRasi/MovieMatch`
 
-3. Download the dataset [MovieLens 20M Dataset](https://www.kaggle.com/datasets/grouplens/movielens-20m-dataset) and place the two required files within the `/assets/data` folder. The two files are `movies_metadata.csv` and `ratings.csv`, both totalling 744 MB.
+3. Open two terminals
 
-4. Build the Docker image: Open a terminal, navigate to your project directory (where the Dockerfile is located), and run the following command to build the Docker image:
+4. In one terminal cd to the backend folder. `cd backend` Then run  `mvn clean package`
 
-`docker build -t movie-match .`
+5. Build then run the backend API using `docker build -t movie-match-backend` and `docker run -d -p 8080:8080 movie-match-backend:latest`
 
-This command builds the Docker image using the Dockerfile in the current directory and tags it with the name `movie-match`.
+6. In the second terminal, navigate to the main project directory (where this README is located), and run the following command to build and run the Docker image: `docker build -t movie-match-frontend .` and `docker run -d -p 4200:80 movie-match-frontend:latest `
 
-5. Run the Docker container: After the image is built, you can run a container based on that image using the following command:
+7. Alternatively if you have Docker Desktop you can manually run these dockerfiles from the GUI interface after building.
 
-`docker run --rm -p 8080:8000 movie-match`
+5. You can now access the frontend application here [localhost:4040](http://localhost:4040/)
 
-This command starts a container using the `movie-match` image and gives you an interactive terminal within the container.
-
-You can now access the application here [localhost:8080](http://localhost:8080/)
-
-6. Interact with the Spark application: Once the container is running, you can interact with the Spark application just like you would in a regular Spark environment. The code will execute within the container, utilizing the Spark installation inside.
-
-7. Clean up: When you're finished using the container, you can stop and remove it using the following commands:
-
-`docker stop movie-match`
+6. To stop the containers run, `docker stop movie-match-frontend` and `docker stop movie-match-backend`
 
 ## Usage
 
-1. User selects three movies: Update the `selectedMovies` array in the code with the movie IDs of the three movies selected by the user.
+1. Select a minumum of three movies using the search dropdown.
 
-2. Generate movie recommendations: The application will generate movie recommendations based on the user-based collaborative filtering and content-based filtering models.
+2. Click recommend: The application will generate movie recommendations based on a hybrid combination of user-based collaborative filtering and content-based filtering models.
 
-3. View the recommendations: The recommended movies will be displayed in the console.
+3. View the recommendations: The recommended movies will be displayed asynchronously within the search.
 
-4. Customize the recommendations: You can modify the number of recommendations generated, the parameters for the collaborative filtering model, or the content-based filtering model as per your requirements.
+## Evaluative Comments
 
-5. Stop the application: Terminate the Spark application when you no longer need the recommendations.
+1. The hybrid approach isn't accurate in the recommendations, however this is a limitation of the 'cold start' having no data on the user to start with. This approach revolves around assigning the user to no.999and has three movies recommended despite other users having over fifteen.
+
+2. A significant amount of libraries are outdated with missing dependencies leading to Java 11 being the latest supported project version.
+
+3. Other languages offer better implementations of the Hadoop and Spark libraries allowing for rich results to be obtained. The main reason why I chose this software package of Java, Spark, Hadoop & Mahout was due to this combination being state-of-the-art a few years ago. If I had to do this project again, I would pick Python and Spark with tensorflow libraries to supplement.
 
 ## Support and Donations
 
@@ -80,4 +76,4 @@ This project is licensed under the [MIT License](LICENSE).
 - [Java](https://www.java.com/)
 - [Maven](https://maven.apache.org/)
 - [Angular](https://angular.io/)
-- [Kaggle The Movies Dataset](https://www.kaggle.com/datasets/rounakbanik/the-movies-dataset)
+- [MovieLens 100K Dataset](https://www.kaggle.com/datasets/prajitdatta/movielens-100k-dataset)
