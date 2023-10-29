@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-import trainCustomModel, getUserRecommendation, randomWine
+import contentbased, userbased, spark_train_model
 
 app = FastAPI()
 
@@ -22,12 +22,12 @@ app.add_middleware(
 
 @app.get("/train")
 def read_root():
-    return trainCustomModel.model()
+    return spark_train_model.train()
 
 @app.get("/recommendContent")
 def read_root():
-    return trainCustomModel.model()
+    return contentbased.recommendContent()
 
 @app.get("/recommendUser")
 def read_root():
-    return trainCustomModel.model()
+    return userbased.recommendUser()
