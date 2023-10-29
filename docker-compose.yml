@@ -1,0 +1,27 @@
+version: '1'
+
+services:
+  app1:
+    build: ./microservices/kafka_consumer/
+    ports:
+      - "8001:8001"
+
+  app2:
+    build: ./microservices/kafka_producer/
+    ports:
+      - "8002:8002"
+
+  app3:
+    build: ./microservices/kafka_server/
+    ports:
+      - "8003:8003"
+
+  app4:
+    build: ./microservices/random_user_data/
+    ports:
+      - "8004:8004"
+
+  app5:
+    build: ./microservices/movie_recommender/
+    ports:
+      - "8005:8005"

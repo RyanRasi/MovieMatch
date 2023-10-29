@@ -77,3 +77,11 @@ This project is licensed under the [MIT License](LICENSE).
 - [Maven](https://maven.apache.org/)
 - [Angular](https://angular.io/)
 - [MovieLens 100K Dataset](https://www.kaggle.com/datasets/prajitdatta/movielens-100k-dataset)
+
+Notes
+
+Get rid of all the oldest timestamps.
+2.5% of the oldest timestamps
+Happens every 3 months
+Keeps up with user trends
+Real time processing through online learning to fix the cold start problem
