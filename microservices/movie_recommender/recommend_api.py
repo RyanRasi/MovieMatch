@@ -31,15 +31,3 @@ def read_root():
 @app.get("/recommendUser")
 def read_root():
     return trainCustomModel.model()
-
-@app.get("/recommend/")
-def read_item(query_param: str = None):
-    if query_param != None:
-        print("query_param", query_param)
-        return getUserRecommendation.recommend(query_param)
-    else:
-        return "Query is None"
-
-@app.get("/random")
-def read_root():
-    return randomWine.random()

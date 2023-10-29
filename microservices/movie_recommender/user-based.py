@@ -6,8 +6,6 @@ def recommendUser(user_id):
     # Create a Spark session
     spark = SparkSession.builder.appName("UserRecommendation").getOrCreate()
 
-    # Load the saved ALS model
-    model_date = "dd_mm_yyyy"  # Replace with the date you used to save the model
     loaded_model = ALSModel.load("../models/als_model")
 
     # Generate top N movie recommendations for the specified user

@@ -1,36 +1,12 @@
-# User Based Recommender
-# Finds Similar Users
-
-import numpy as np # linear algebra
-import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
-import os
+import pandas as pd
 import ast
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import linear_kernel
-from sklearn.metrics import pairwise_distances
 from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.model_selection import train_test_split
-
-from scipy.spatial.distance import cosine, correlation
-from surprise import Reader, Dataset, SVD, NormalPredictor, BaselineOnly, KNNBasic, NMF
-from surprise.model_selection import cross_validate, KFold ,GridSearchCV , RandomizedSearchCV
-
-from keras.models import Sequential
-from keras.callbacks import ReduceLROnPlateau, EarlyStopping
-from keras.layers import  Input, dot, concatenate
-from keras.models import Model
-from IPython.display import SVG, display
-from keras.utils.vis_utils import model_to_dot
-from keras.layers import Activation, Dense, Dropout, Embedding, Flatten, Conv1D, MaxPooling1D, LSTM
-
+from sklearn.metrics import pairwise_distances
 import gc
-import matplotlib.pyplot as plt
-import seaborn as sns
-from datetime import datetime
 
-meta_data = pd.read_csv('../data/moviesdataset/movies_metadata.csv')
-keywords = pd.read_csv('../data/moviesdataset/keywords.csv')
-credits = pd.read_csv('../data/moviesdataset/credits.csv')
+meta_data = pd.read_csv('./data/moviesdataset/movies_metadata.csv')
+keywords = pd.read_csv('./data/moviesdataset/keywords.csv')
+credits = pd.read_csv('./data/moviesdataset/credits.csv')
 
 meta_data = meta_data[meta_data.id!='1997-08-20']
 meta_data = meta_data[meta_data.id!='2012-09-29']
@@ -47,7 +23,6 @@ def btc_function(data):
     if type(data) == str:
         return ast.literal_eval(data)['name'].replace(" ","")
     return data
-# https://www.kaggle.com/hadasik/movies-analysis-visualization-newbie
 def get_values(data_str):
     if isinstance(data_str, float):
         pass
@@ -73,7 +48,6 @@ def vector_values(df , columns , min_df_value):
     c_vector = CountVectorizer(min_df = min_df_value)
     df_1 = pd.DataFrame(index = df.index)
     for col in columns:
-        #print(col)
         df_1 = df_1.join(pd.DataFrame(c_vector.fit_transform(df[col]).toarray(),columns =c_vector.get_feature_names_out(),index= df.index).add_prefix(col+'_'))
     return df_1
 meta_data_addon_1 = vector_values(meta_data , columns = ['status','original_language','genres', 'production_companies' ,'production_countries' , 'spoken_languages' , 'keywords' , 'cast' ,'crew'] ,min_df_value = 20)
@@ -119,10 +93,6 @@ def get_similar_movies(movie_title , num_rec = 10):
         return sample_1.sort_values(by = 0 , ascending  = False).head(num_rec).index
     except ValueError as e:
         print(e)
-
-#print(get_similar_movies('Toy Story (1995-10-30)'))
-#print(get_similar_movies('Heat (1995-12-15)'))
-#print(get_similar_movies('Kong: Skull Island (2017-03-08)'))
 
 def multi_rec(seen_movies):
     rec_movies = []
