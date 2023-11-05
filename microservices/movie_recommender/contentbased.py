@@ -4,7 +4,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics import pairwise_distances
 import gc
 
-def recommendContent():
+def recommendContent(movies):
     meta_data = pd.read_csv('./data/moviesdataset/movies_metadata.csv')
     keywords = pd.read_csv('./data/moviesdataset/keywords.csv')
     credits = pd.read_csv('./data/moviesdataset/credits.csv')
@@ -100,5 +100,7 @@ def recommendContent():
         for mov in seen_movies:
             rec_movies.append(get_similar_movies(mov , 5).values)
         return rec_movies
+    
+    #['Star Wars: The Clone Wars (2008-08-05)' , 'Marvel One-Shot: Item 47 (2012-09-13)']
         
-    print(multi_rec(['Star Wars: The Clone Wars (2008-08-05)' , 'Marvel One-Shot: Item 47 (2012-09-13)']))
+    print(multi_rec(movies))

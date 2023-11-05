@@ -1,8 +1,0 @@
-org/moviematch/recommend/ContentRecommender$MovieSimilarity.class
-org/moviematch/controller/MovieController.class
-org/moviematch/recommend/ContentRecommender.class
-org/moviematch/Main.class
-org/moviematch/train/MovieRecommenderModel.class
-org/moviematch/train/TrainMahoutContentBased.class
-org/moviematch/recommend/HybridRecommender.class
-org/moviematch/recommend/CollaborativeRecommender.class

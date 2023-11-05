@@ -1,7 +1,0 @@
-/Users/ryan/Projects/MovieMatch/backend/src/main/java/org/moviematch/Main.java
-/Users/ryan/Projects/MovieMatch/backend/src/main/java/org/moviematch/train/TrainMahoutContentBased.java
-/Users/ryan/Projects/MovieMatch/backend/src/main/java/org/moviematch/recommend/CollaborativeRecommender.java
-/Users/ryan/Projects/MovieMatch/backend/src/main/java/org/moviematch/controller/MovieController.java
-/Users/ryan/Projects/MovieMatch/backend/src/main/java/org/moviematch/train/MovieRecommenderModel.java
-/Users/ryan/Projects/MovieMatch/backend/src/main/java/org/moviematch/recommend/HybridRecommender.java
-/Users/ryan/Projects/MovieMatch/backend/src/main/java/org/moviematch/recommend/ContentRecommender.java
