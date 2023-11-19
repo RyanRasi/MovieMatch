@@ -1,27 +1,56 @@
 version: '1'
 
 services:
-  app1:
-    build: ./microservices/kafka_consumer/
+  zookeeper:
+    image: docker.io/bitnami/zookeeper:3.7.2
+    container_name: zookeeper
     ports:
-      - "8001:8001"
+      - "2181:2181"
+  
+  kafka:
+    image: docker.io/bitnami/kafka:3.6
+    container_name: kafka
+    ports: 
+      - "9092:9092"
+    volumes:
+      - "kafka_data:/bitnami"
+    environment:
+      # KRaft settings
+      - KAFKA_CFG_NODE_ID=0
+      - KAFKA_CFG_PROCESS_ROLES=controller,broker
+      - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=0@kafka:9093
+      # Listeners
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://:9092
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
+      - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
+      - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=PLAINTEXT
 
-  app2:
-    build: ./microservices/kafka_producer/
-    ports:
-      - "8002:8002"
+  #app1:
+  #  build: ./microservices/kafka_consumer/
+  #  ports:
+  #    - "8001:8001"
 
-  app3:
-    build: ./microservices/kafka_server/
-    ports:
-      - "8003:8003"
+  #app2:
+  #  build: ./microservices/kafka_producer/
+  #  ports:
+  #    - "8002:8002"
 
-  app4:
-    build: ./microservices/random_user_data/
-    ports:
-      - "8004:8004"
+  #app3:
+  #  build: ./microservices/kafka_server/
+  #  ports:
+  #    - "8003:8003"
 
-  app5:
-    build: ./microservices/movie_recommender/
-    ports:
-      - "8005:8005"
+  #app4:
+  #  build: ./microservices/random_user_data/
+  #  ports:
+  #    - "8004:8004"
+
+  #app5:
+  #  build: ./microservices/movie_recommender/
+  #  ports:
+  #    - "8005:8005"
+
+volumes:
+  kafka_data:
+    driver: local
