@@ -8,7 +8,7 @@ WORKDIR /app
 COPY randomUserData.py /app/
 
 # Copy Kafka config into the container
-COPY ../kafka_config.ini /app/
+COPY ./kafka_config.ini /app/
 
 # Run the Python script when the container starts
 CMD ["python", "randomUserData.py"]
